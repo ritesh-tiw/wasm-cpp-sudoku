@@ -1,9 +1,12 @@
-import Constant from "./constants.js"
+import {Constant} from "./constants.js"
 
-console.log(Constant.HEIGHT);
 export const player={
     'name':"RITESH",
     'color':'green',
+    'velocity':{
+        'vx':5,
+        'vy':0
+    },
     'position':{
         'x':0,
         'y':0
@@ -18,6 +21,10 @@ export const player={
 export const enemy={
     'name':"Enemy",
     'color':'red',
+    'velocity':{
+        'vx':-5,
+        'vy':0
+    },
     'position':{
         'x':Constant.WIDTH-100,
         'y':Constant.HEIGHT-100
