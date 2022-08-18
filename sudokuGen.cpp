@@ -329,9 +329,9 @@ void Sudoku::printGrid() const
         cout << 0;
       else
         cout << grid[i][j];
-      cout<<" ";
+      cout<<"";
     }
-    cout << endl;
+    // cout << endl;
   }
 
   cout << "\nDifficulty of current sudoku(0 being easiest): " << this->difficultyLevel;
