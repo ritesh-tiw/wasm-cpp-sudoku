@@ -13,6 +13,7 @@ h1, .Solver {
 .Grid {
   display: flex;
   justify-content: center;
+  align-items: center;
   margin-bottom: 2rem;
 }
 
@@ -29,12 +30,12 @@ h1, .Solver {
 
 .Grid-square {
   display: flex;
-  width: 40px;
-  height: 40px;
+  width: 50px;
+  height: 50px;
   border-radius: 0;
-  font-size: 1rem;
+  font-size: 16px;
   text-align: center;
-  cursor: pointer;
+  cursor: auto;
 }
 
 .Grid-square:hover,
