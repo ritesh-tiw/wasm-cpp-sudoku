@@ -2,6 +2,7 @@
 <html lang="en">
   <head>
     <title>Sudoku Solver</title>
+    <link rel="icon" type="image/x-icon" href="./images/favicon.ico">
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <meta name="description" content="A depth-first search approach to solving Sudoku. Written in C++, compiled to WebAssembly and presented with React." />
@@ -15,7 +16,8 @@
     <noscript>You need to enable JavaScript to run this app.</noscript>
 
     <header>
-      <h1>Sudoku Solver</h1>
+      <h1>SUDKO SOLVER</h1>
+      
     </header>
 
     <div id="app"></div>
@@ -107,9 +109,9 @@
         return (
           <div className="Controls">
             <select ref={chosenPuzzle} onChange={onResetClick}>
-              <option value="easy">Easy</option>
-              <option value="medium">Medium</option>
-              <option value="hard">Hard</option>
+              <option value="easy">EASY</option>
+              <option value="medium">MEDIUM</option>
+              <option value="hard">HARD</option>
               <option value="empty">Empty</option>
             </select>
 
