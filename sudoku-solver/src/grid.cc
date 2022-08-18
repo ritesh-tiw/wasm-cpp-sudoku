@@ -1,4 +1,5 @@
 #include "grid.h"
+#include<stdexcept>
 
 namespace sudoku {
 

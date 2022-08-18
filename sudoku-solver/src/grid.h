@@ -3,70 +3,84 @@
 
 #include <string>
 #include <vector>
+#include <algorithm>
+#include <stdexcept>
 
 using std::string;
 using std::vector;
 
-namespace sudoku {
+namespace sudoku
+{
 
-class Grid {
- public:
-  void SetCell(int idx, int digit) {
-    cells_[idx] = digit;
-  }
-
-  void ClearCell(int idx) {
-    SetCell(idx, kEmpty);
-  }
-
-  int GetCell(int idx) const {
-    return cells_[idx];
-  }
-
-  bool IsCellEmpty(int idx) const {
-    return GetCell(idx) == kEmpty;
-  }
-
-  bool IsComplete() const {
-    return std::none_of(cells_.begin(), cells_.end(), [](int digit) { return digit == kEmpty; });
-  }
-
-  string ToString() const {
-    string cells = "";
-
-    for (const int &digit : cells_) {
-      cells += std::to_string(digit);
+  class Grid
+  {
+  public:
+    void SetCell(int idx, int digit)
+    {
+      cells_[idx] = digit;
     }
 
-    return cells;
-  }
+    void ClearCell(int idx)
+    {
+      SetCell(idx, kEmpty);
+    }
 
-  vector<vector<int>> GenerateChoices();
+    int GetCell(int idx) const
+    {
+      return cells_[idx];
+    }
 
-  bool BoxHasDigit(int, int);
-  bool RowHasDigit(int, int);
-  bool ColHasDigit(int, int);
+    bool IsCellEmpty(int idx) const
+    {
+      return GetCell(idx) == kEmpty;
+    }
 
-  static Grid FromString(const string&);
+    bool IsComplete() const
+    {
+      return std::none_of(cells_.begin(), cells_.end(), [](int digit)
+                          { return digit == kEmpty; });
+    }
 
-  static const int kSize = 81;
+    string ToString() const
+    {
+      string cells = "";
 
- private:
-  vector<int> cells_;
+      for (const int &digit : cells_)
+      {
+        cells += std::to_string(digit);
+      }
 
-  Grid(const vector<int> &cells): cells_(cells) {
-    Validate();
-  }
+      return cells;
+    }
 
-  void Validate() noexcept(false);
+    vector<vector<int>> GenerateChoices();
 
-  static const int kEmpty = 0;
-};
+    bool BoxHasDigit(int, int);
+    bool RowHasDigit(int, int);
+    bool ColHasDigit(int, int);
 
-struct Unsolvable : public std::runtime_error {
-  Unsolvable() : std::runtime_error("Grid is not solvable") {}
-};
+    static Grid FromString(const string &);
 
-}  // namespace sudoku
+    static const int kSize = 81;
 
-#endif  // SRC_GRID_H_
+  private:
+    vector<int> cells_;
+
+    Grid(const vector<int> &cells) : cells_(cells)
+    {
+      Validate();
+    }
+
+    void Validate() noexcept(false);
+
+    static const int kEmpty = 0;
+  };
+
+  struct Unsolvable : public std::runtime_error
+  {
+    Unsolvable() : std::runtime_error("Grid is not solvable") {}
+  };
+
+} // namespace sudoku
+
+#endif // SRC_GRID_H_
