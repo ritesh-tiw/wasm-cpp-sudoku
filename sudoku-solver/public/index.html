@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Sudoku Solver</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="description" content="A depth-first search approach to solving Sudoku. Written in C++, compiled to WebAssembly and presented with React." />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@exampledev/new.css@1.1.2/new.min.css" />
+    <link rel="stylesheet" href="./styles.css" />
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js" crossorigin></script>
+    <script src="https://unpkg.com/react@16/umd/react.production.min.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js" crossorigin></script>
+  </head>
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+
+    <header>
+      <h1>Sudoku Solver</h1>
+    </header>
+
+    <div id="app"></div>
+
+    <script>
+      var puzzles = {
+        easy: '050000030302000704080010050000703000006050300000802000020090040609000801010000060',
+        medium: '300400600700090003800300000030521000000000090020030040048002000006000100000007400',
+        hard: '800000000003600000070090200050007000000045700000100030001000068008500010090000400',
+        empty: '000000000000000000000000000000000000000000000000000000000000000000000000000000000',
+      };
+
+      var worker = new Worker('worker.js');
+    </script>
+
+    <script type="text/babel">
+      const Solver = () => {
+        const [cells, setCells] = React.useState(puzzles.easy);
+        const [isCustom, setIsCustom] = React.useState(false);
+        const [isSolving, setIsSolving] = React.useState(false);
+        const [isSolved, setIsSolved] = React.useState(false);
+        const [error, setError] = React.useState(null);
+
+        const solvePuzzle = () => {
+          setIsSolving(true);
+          worker.postMessage(cells);
+
+          worker.onmessage =
+            worker.onmessage ||
+            ((e) => {
+              setIsSolving(false);
+
+              if (e.data.error !== undefined) {
+                setError(e.data.error);
+              } else {
+                setCells(e.data.cells);
+                setIsSolved(true);
+              }
+            });
+        };
+
+        const setPuzzle = (puzzle) => {
+          setCells(puzzles[puzzle]);
+          setIsCustom(false);
+          setIsSolved(false);
+          setError(null);
+        };
+
+        const setCell = (digit, idx) => {
+          if (!isNaN(digit) && digit.length <= 1) {
+            const newCells = [...cells];
+            newCells[idx] = digit || '0';
+            setCells(newCells.join(''));
+          }
+
+          setIsCustom(true);
+        };
+
+        return (
+          <div className={`Solver${isSolving ? ' is-solving' : ''}`}>
+            <Controls
+              isCustom={isCustom}
+              isSolving={isSolving}
+              isSolved={isSolved}
+              solvePuzzle={solvePuzzle}
+              setPuzzle={setPuzzle}
+            />
+            <Grid
+              cells={cells}
+              setCell={setCell}
+            />
+            {error && <p>{error}</p>}
+          </div>
+        );
+      };
+
+      const Controls = (props) => {
+        const {
+          isCustom,
+          isSolving,
+          isSolved,
+          solvePuzzle,
+          setPuzzle
+        } = props;
+
+        const chosenPuzzle = React.useRef(null);
+        const onResetClick = () => setPuzzle(chosenPuzzle.current.value);
+
+        return (
+          <div className="Controls">
+            <select ref={chosenPuzzle} onChange={onResetClick}>
+              <option value="easy">Easy</option>
+              <option value="medium">Medium</option>
+              <option value="hard">Hard</option>
+              <option value="empty">Empty</option>
+            </select>
+
+            <button onClick={solvePuzzle} disabled={isSolved || isSolving}>
+              Solve
+            </button>
+
+            <button onClick={onResetClick} disabled={!isSolved && !isCustom}>
+              Reset
+            </button>
+          </div>
+        );
+      };
+
+      const Grid = ({ cells, setCell }) => {
+        const onCellChange = (event, idx) => {
+          setCell(event.target.value, idx);
+          event.target.select();
+        };
+
+        return (
+          <div className="Grid">
+            <div className="Grid-squares">
+              {[...cells].map((cell, idx) => (
+                <input
+                  key={idx}
+                  type="text"
+                  value={Number(cell) || ''}
+                  className="Grid-square"
+                  onFocus={(e) => e.target.select()}
+                  onChange={(e) => onCellChange(e, idx)}
+                />
+              ))}
+            </div>
+          </div>
+        );
+      };
+
+      ReactDOM.render(
+        <Solver />,
+        document.getElementById('app')
+      );
+    </script>
+
+    <script>
+      if (window.location.search.indexOf('embed') !== -1) {
+        var embedCss = ':root{--nc-tx-1:#000000;--nc-tx-2:#1A1A1A;--nc-bg-1:#FFFFFF;--nc-bg-2:#F6F8FA;--nc-bg-3:#E5E7EB;--nc-lk-1:#0070F3;--nc-lk-2:#0366D6;--nc-lk-tx:#FFFFFF;--nc-ac-1:#79FFE1;--nc-ac-tx:#0C4047;}header{display:none;}';
+        var style = document.createElement('style');
+        style.appendChild(document.createTextNode(embedCss));
+        (document.head || document.getElementsByTagName('head')[0]).appendChild(style);
+      }
+    </script>
+  </body>
+</html>

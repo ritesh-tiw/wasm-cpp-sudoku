@@ -1,0 +1,75 @@
+h1, .Solver {
+  text-align: center;
+}
+
+.Controls {
+  margin-bottom: 2rem;
+}
+
+.Controls > * {
+  margin: 0 0.5rem;
+}
+
+.Grid {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+
+.is-solving .Grid {
+  filter: blur(1px);
+}
+
+.Grid-squares {
+  display: grid;
+  grid-template: repeat(9, 40px) / repeat(9, 1fr);
+  border-radius: 5px;
+  border: 3px solid var(--nc-bg-3);
+}
+
+.Grid-square {
+  display: flex;
+  width: 40px;
+  height: 40px;
+  border-radius: 0;
+  font-size: 1rem;
+  text-align: center;
+  cursor: pointer;
+}
+
+.Grid-square:hover,
+.Grid-square:focus { background-color: var(--nc-bg-1); }
+.Grid-square:focus { outline: 0; }
+
+.Grid-square:nth-child(n+73):nth-child(-n+81),
+.Grid-square:nth-child(n+19):nth-child(-n+27),
+.Grid-square:nth-child(n+46):nth-child(-n+54) { border-bottom-width: 4px; }
+.Grid-square:nth-child(n):nth-child(-n+9) { border-top-width: 4px; }
+.Grid-square:nth-child(3n) { border-right-width: 4px; }
+.Grid-square:nth-child(9n+1) { border-left-width: 4px; }
+
+input.Grid-square { caret-color: transparent; }
+input.Grid-square::selection { background: transparent; }
+
+@media screen and (min-width: 768px) {
+  .Grid-squares {
+    grid-template: repeat(9, 45px) / repeat(9, 1fr);
+  }
+
+  .Grid-square {
+    width: 45px;
+    height: 45px;
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .Grid-squares {
+    grid-template: repeat(9, 50px) / repeat(9, 1fr);
+  }
+
+  .Grid-square {
+    width: 50px;
+    height: 50px;
+    font-size: 1.1rem;
+  }
+}
