@@ -47,10 +47,7 @@ uses
 
 ```markdown
 python3 -m http.server
-```
+```[clipl.webm](https://user-images.githubusercontent.com/107099010/185517200-cfee0f28-628b-4941-9e12-4cef610c0d7c.webm)
 
-[Screenca[clip2.webm](https://user-images.githubusercontent.com/107099010/185517057-742786b8-914c-4aec-804f-fd1c76068e7f.webm)
-st from 19[clip1.webm](https://user-images.githubusercontent.com/107099010/185517046-64c6a86c-0215-4b0e-a733-af1c50a04dfa.webm)
--08-22 05:15:31 AM IST.webm](PROJECT_SUDKO_WASM%20205d0738a0fe4d589acbdacb397b0d9c/Screencast_from_19-08-22_051531_AM_IST.webm)
+[clipr.webm](https://user-images.githubusercontent.com/107099010/185517203-8389f111-4715-4f6c-98ca-6d5dc5ac30ee.webm)
 
-[Screencast from 19-08-22 05:17:26 AM IST.webm](PROJECT_SUDKO_WASM%20205d0738a0fe4d589acbdacb397b0d9c/Screencast_from_19-08-22_051726_AM_IST.webm)
