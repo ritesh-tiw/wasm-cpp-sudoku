@@ -151,10 +151,8 @@ void Sudoku::createSeed() {
       x | x | x
       x | x | x
   */
-  this->solveGrid(); // TODO: not truly random, but still good enough because we
-                     // generate random diagonals.
-
-  // Saving the solution grid
+  this->solveGrid(); //i have to make it random
+  // Save the current solution grid here
   for (int i = 0; i < 9; i++) {
     for (int j = 0; j < 9; j++) {
       this->solnGrid[i][j] = this->grid[i][j];
